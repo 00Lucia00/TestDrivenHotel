@@ -8,8 +8,8 @@ on:
       - main
 
 env:
-  AZURE_FUNCTIONAPP_NAME: 'Lucias-Hotel'   # set this to your function app name on Azure
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'       # set this to the path to your function app project, defaults to the repository root
+  AZURE_WEBAPP_NAME: 'LuciasHotel'   # set this to your Web app name on Azure
+  AZURE_WEBAPP_PACKAGE_PATH: './publish'       # set this to the path to your Web app project, defaults to the repository root
   DOTNET_VERSION: '7.0'                   # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
 
 jobs:
@@ -22,9 +22,9 @@ jobs:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v4.0.0
         with:
-          dotnet-version: '7'
+          dotnet-version: $({DOTNET_VERSION})
       
-      - name: Cache dependencies
+      - name: Cache dependencies #förbättrar exicution time
         uses: actions/cache@v4.0.0
         with:
           path: ~/.nuget
@@ -40,7 +40,7 @@ jobs:
         run: dotnet test --no-restore --verbosity minimal
 
       - name: Print job complete
-        run: echo "Test job complete time $(date)!"
+        run: echo "Test job complete at $(date)!"
 
   publish-project: #Om testet fungerar
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
     steps:  
 
       - name: Publish job start
-        run: echo "Publish job start time $(date)!"
+        run: echo "Publish job started at $(date)!"
 
       - name: Check out action
         uses: actions/checkout@v4.1.1
@@ -56,7 +56,7 @@ jobs:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v4.0.0
         with:
-          dotnet-version: '7'
+          dotnet-version: $({DOTNET_VERSION})
 
       - name: Cache dependencies
         uses: actions/cache@v4.0.0
@@ -71,14 +71,13 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Create publish files
-        run: dotnet publish --configuration Release --output ./publish
-
+        run: dotnet publish --configuration Release --output '$({env.AZURE_WEBAPP_PACKAGE_PATH})'
       - name: Deploy to Azure
         uses: Azure/webapps-deploy@v3.0.0
         with: 
-          app-name: "lucias-Hotel"
+          app-name: $({env.AZURE_WEBAPP_NAME})
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }}
-          package: './publish'
+          package: '$({env.AZURE_WEBAPP_PACKAGE_PATH})'
                    
   create-issue: #ifall testet inte fungerar
     runs-on: ubuntu-latest
