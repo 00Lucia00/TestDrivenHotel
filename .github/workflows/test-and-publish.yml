@@ -22,7 +22,7 @@ jobs:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v4.0.0
         with:
-          dotnet-version: $({DOTNET_VERSION})
+          dotnet-version: '$({DOTNET_VERSION})'
       
       - name: Cache dependencies #förbättrar exicution time
         uses: actions/cache@v4.0.0
@@ -56,7 +56,7 @@ jobs:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v4.0.0
         with:
-          dotnet-version: $({DOTNET_VERSION})
+          dotnet-version: '$({DOTNET_VERSION})'
 
       - name: Cache dependencies
         uses: actions/cache@v4.0.0
