@@ -1,0 +1,92 @@
+name: Test and publish to azure
+on: 
+  push:
+    branches:
+     - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  AZURE_FUNCTIONAPP_NAME: 'Lucias-Hotel'   # set this to your function app name on Azure
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'       # set this to the path to your function app project, defaults to the repository root
+  DOTNET_VERSION: '7.0'                   # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
+
+jobs:
+  test-project: # kör tester när arbetet pushas till main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out action
+        uses: actions/checkout@v4.1.1
+
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4.0.0
+        with:
+          dotnet-version: '7'
+      
+      - name: Cache dependencies
+        uses: actions/cache@v4.0.0
+        with:
+          path: ~/.nuget
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Test
+        run: dotnet test --no-restore --verbosity minimal
+
+      - name: Print job complete
+        run: echo "Test job complete time $(date)!"
+
+  publish-project: #Om testet fungerar
+    runs-on: ubuntu-latest
+    needs: test-project
+    steps:  
+
+      - name: Publish job start
+        run: echo "Publish job start time $(date)!"
+
+      - name: Check out action
+        uses: actions/checkout@v4.1.1
+
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4.0.0
+        with:
+          dotnet-version: '7'
+
+      - name: Cache dependencies
+        uses: actions/cache@v4.0.0
+        with:
+          path: ~/.nuget
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Create publish files
+        run: dotnet publish --configuration Release --output ./publish
+
+      - name: Deploy to Azure
+        uses: Azure/webapps-deploy@v3.0.0
+        with: 
+          app-name: "lucias-Hotel"
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }}
+          package: './publish'
+                   
+  create-issue: #ifall testet inte fungerar
+    runs-on: ubuntu-latest
+    needs: test-project
+    if: failure()
+    steps:
+      - name: Print job started
+        run: |
+              echo "Test failed. . . "
+              echo "Creating issue."
+    
