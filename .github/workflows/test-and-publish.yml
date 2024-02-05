@@ -88,4 +88,3 @@ jobs:
         run: |
               echo "Test failed. . . "
               echo "Creating issue."
-    
