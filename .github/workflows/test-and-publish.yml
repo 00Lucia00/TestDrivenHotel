@@ -9,7 +9,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: LuciasHotel  # set this to your Web app name on Azure
-  AZURE_WEBAPP_PACKAGE_PATH: './publish'       # set this to the path to your Web app project, defaults to the repository root
+  AZURE_WEBAPP_PACKAGE_PATH: './publish'     # set this to the path to your Web app project, defaults to the repository root
                     
 jobs:
   test-project: # kör tester när arbetet pushas till main
@@ -70,20 +70,20 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Create publish files
-        run: dotnet publish --configuration Release --output '$({env.AZURE_WEBAPP_PACKAGE_PATH})'
+        run: dotnet publish --configuration Release --output '${{env.AZURE_WEBAPP_PACKAGE_PATH}}'
       - name: Deploy to Azure
         uses: Azure/webapps-deploy@v3.0.0
         with: 
-          app-name: $({env.AZURE_WEBAPP_NAME})
+          app-name: ${{env.AZURE_WEBAPP_NAME}}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: '$({env.AZURE_WEBAPP_PACKAGE_PATH})'
+          package: '${{env.AZURE_WEBAPP_PACKAGE_PATH}}'
                    
   create-issue: #ifall testet inte fungerar
     runs-on: ubuntu-latest
     needs: test-project
     if: failure()
     steps:
-      - name: Print job started
+      - name: Print create issue job 
         run: |
               echo "Test failed. . . "
               echo "Creating issue."
