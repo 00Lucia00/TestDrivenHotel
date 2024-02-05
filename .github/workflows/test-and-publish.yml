@@ -1,0 +1,91 @@
+name: Test and publish to azure
+on: 
+  push:
+    branches:
+     - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  AZURE_WEBAPP_NAME: LuciasHotel  # set this to your Web app name on Azure
+  AZURE_WEBAPP_PACKAGE_PATH: './publish'     # set this to the path to your Web app project, defaults to the repository root
+                    
+jobs:
+  test-project: # run tests when a push is made to the main branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out action
+        uses: actions/checkout@v4.1.1
+
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4.0.0
+        with:
+          dotnet-version: '7.0'
+      
+      - name: Cache dependencies #improve execution time
+        uses: actions/cache@v4.0.0
+        with:
+          path: ~/.nuget
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Test
+        run: dotnet test --no-restore --verbosity minimal
+
+      - name: Print job complete
+        run: echo "Test job complete at $(date)!"
+
+  publish-project: #run if the test passes
+    runs-on: ubuntu-latest
+    needs: test-project
+    steps:  
+
+      - name: Publish job start
+        run: echo "Publish job started at $(date)!"
+
+      - name: Check out action
+        uses: actions/checkout@v4.1.1
+
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4.0.0
+        with:
+          dotnet-version: '7.0'
+
+      - name: Cache dependencies
+        uses: actions/cache@v4.0.0
+        with:
+          path: ~/.nuget
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Create publish files to Azure
+        run: dotnet publish --configuration Release --output '${{env.AZURE_WEBAPP_PACKAGE_PATH}}'
+      
+      - name: Deploy to Azure
+        uses: Azure/webapps-deploy@v3.0.0
+        with: 
+          app-name: ${{env.AZURE_WEBAPP_NAME}}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: '${{env.AZURE_WEBAPP_PACKAGE_PATH}}'
+                   
+  create-issue: #run if the tests dont pass
+    runs-on: ubuntu-latest
+    needs: test-project
+    if: failure()
+    steps:
+      - name: Print create issue job 
+        run: |
+              echo "Test failed. . . "
+              echo "Creating issue."
+    
