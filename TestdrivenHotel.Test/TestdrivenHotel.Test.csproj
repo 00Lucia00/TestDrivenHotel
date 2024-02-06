@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TestDrivenHotel.Logic\TestDrivenHotel.Logic.csproj" />
+  </ItemGroup>
+
 </Project>
