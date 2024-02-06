@@ -9,7 +9,7 @@ namespace TestdrivenHotel.Test
         {
             string expected = "Hello world";
 
-            string result = "Hello world";
+            string result = "ello world";
 
             result.Should().BeEquivalentTo(expected);
 
