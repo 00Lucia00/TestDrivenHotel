@@ -4,24 +4,33 @@
     ViewData["Title"] = "Home page";
 }
 
+<form class="form" method="post">
+    <div class="container">
+        <img src="Img / bakgrund_Image.webp" alt="" />
+        <h1>Welcome to the Hotel Booking System</h1>
+        <p>Please enter your desired check-in and check-out dates, as well as the number of guests.</p>
+        <h2>Book a Room</h2>
+    </div>
+    <div class="container-fluid">
+        <label for="checkInDate">Check-in Date:</label>
+        <input type="date" name="checkInDate" id="checkInDate" required>
+
+        <label for="checkOutDate">Check-out Date:</label>
+        <input type="date" name="checkOutDate" id="checkOutDate" required>
+
+        <label for="numberOfGuests">Number of Guests:</label>
+        <select name="numberOfGuests" id="numberOfGuests">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+
+        <button type="submit">Search</button>
+    </div>
+</form>
 
 
-        <h1>Book a Room</h1>
-        <form class="form" method="post">
-            <label for="checkInDate">Check-in Date:</label>
-            <input type="date" name="checkInDate" id="checkInDate" required>
-
-            <label for="checkOutDate">Check-out Date:</label>
-            <input type="date" name="checkOutDate" id="checkOutDate" required>
-
-            <label for="numberOfGuests">Number of Guests:</label>
-            <select name="numberOfGuests" id="numberOfGuests">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-
-            <button type="submit">Search</button>
-        </form>
+        
+        

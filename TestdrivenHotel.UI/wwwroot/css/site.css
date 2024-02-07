@@ -1,3 +1,9 @@
+* {
+    padding: 0;
+    margin 0;
+    box-sizing:border-box;
+}
+
 html {
   font-size: 14px;
 }
@@ -18,20 +24,31 @@ html {
 }
 
 body {
+
     margin-bottom: 60px;
     font-family: Arial, sans-serif;
     padding: 0;
     margin: 0;
 }
 
+h1{
+    font-weight: 400;
+}
+
 
 #header {
-    background-color: #666600;
-    color: #ffffff;
+    background-color: #cece82;
     padding: 15px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
+}
+header ul{
+    display: inline-block;
+}
+header ul li{
+    display: inline-block;
+    text-transform:uppercase;
 }
 
 #logo {
@@ -42,14 +59,16 @@ body {
 
 #navigation {
     display: flex;
-    align-items: center;
+    align-items: end;
 }
 
-    #navigation a {
+nav ul li {
+        display: inline-block;
+        text-transform: uppercase;
         color: #ffffff;
         margin: 0 10px;
         text-decoration: none;
-    }
+}
 
 #content {
     max-width: 1200px;
@@ -64,8 +83,16 @@ h1 {
 
 form {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
+.flex{
+    display:flex;
+}
+.flex_space{
+    display:flex;
+    justify-content: space-between
+}
+
 
 label {
     font-weight: bold;
@@ -91,3 +118,10 @@ button {
     button:hover {
         background-color: #999900;
     }
+
+.backImg {
+    
+    background-size: cover;
+    background-position: center;
+    color: white;
+}

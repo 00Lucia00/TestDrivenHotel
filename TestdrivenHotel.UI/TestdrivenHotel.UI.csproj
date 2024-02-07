@@ -14,4 +14,8 @@
     <ProjectReference Include="..\TestDrivenHotel.Logic\TestDrivenHotel.Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Img\" />
+  </ItemGroup>
+
 </Project>
