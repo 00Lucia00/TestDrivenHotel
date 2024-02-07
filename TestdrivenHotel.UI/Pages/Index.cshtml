@@ -4,8 +4,24 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-<h1>Lucias Hotel test passed!!!</h1>
+
+
+        <h1>Book a Room</h1>
+        <form class="form" method="post">
+            <label for="checkInDate">Check-in Date:</label>
+            <input type="date" name="checkInDate" id="checkInDate" required>
+
+            <label for="checkOutDate">Check-out Date:</label>
+            <input type="date" name="checkOutDate" id="checkOutDate" required>
+
+            <label for="numberOfGuests">Number of Guests:</label>
+            <select name="numberOfGuests" id="numberOfGuests">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+
+            <button type="submit">Search</button>
+        </form>
