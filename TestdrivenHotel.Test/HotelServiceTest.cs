@@ -47,5 +47,23 @@ namespace TestdrivenHotel.Test
             // Assert
             availableRooms.Should().BeEmpty();
         }
+
+        [Fact]
+        public void GetAvailableRooms_ReturnsOnlyMatchingRooms_WhenCalledWithRoomType()
+        {
+            // Arrange
+
+            var checkInDate = DateTime.Today;
+            var checkOutDate = checkInDate.AddDays(2);
+            var numberOfGuests = 1;
+            var roomType = "Double Room";
+
+            // Act
+            var availableRooms = service.GetAvailableRooms(checkInDate, checkOutDate, numberOfGuests, roomType);
+
+            // Assert
+            availableRooms.Should().NotBeEmpty();
+            availableRooms.Should().OnlyContain(r => r.RoomType == roomType && r.GuestCapacity >= numberOfGuests);
+        }
     }
 }

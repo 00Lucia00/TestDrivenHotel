@@ -28,27 +28,24 @@ namespace TestDrivenHotel.Logic
             {
                 availableRooms = availableRooms.Where(r => r.RoomType == roomType).ToList();
             }
-
-            if (checkInDate < DateTime.Now || checkOutDate < checkInDate)
+            if(checkInDate < DateTime.Today || checkOutDate < DateTime.Today.AddDays(1))
             {
                 availableRooms.Clear();
                 return availableRooms;
             }
-            else 
-            {
-                // kollar ifall datumen man sökt efter är tillgängliga och inte ligger i bookings listan
-                foreach (var booking in HotelData.Bookings)
+            // kollar ifall datumen man sökt efter är tillgängliga och inte ligger i bookings listan
+            foreach (var booking in HotelData.Bookings)
+             {
+                if (checkInDate >= booking.CheckInDate && checkInDate < booking.CheckOutDate ||
+                    checkOutDate > booking.CheckInDate && checkOutDate <= booking.CheckOutDate ||
+                    checkInDate < booking.CheckInDate && checkOutDate > booking.CheckOutDate)
                 {
-                    if (checkInDate >= booking.CheckInDate && checkInDate < booking.CheckOutDate ||
-                        checkOutDate > booking.CheckInDate && checkOutDate <= booking.CheckOutDate ||
-                        checkInDate < booking.CheckInDate && checkOutDate > booking.CheckOutDate)
-                    {
-                        //tarbort det rum som är bokade under det sökta datumen
-                        availableRooms.Remove(availableRooms.First(r => r.Id == booking.RoomId));
-                    }
+                     //tarbort det rum som är bokade under det sökta datumen
+                     availableRooms.Remove(availableRooms.First(r => r.Id == booking.RoomId));
                 }
+             }
                 return availableRooms;
-            }
+
         }
        
 
