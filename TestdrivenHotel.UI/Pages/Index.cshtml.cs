@@ -21,25 +21,27 @@ namespace TestdrivenHotel.UI.Pages
         public int NumberOfGuests { get; set; }
 
         [BindProperty]
-        public string RoomType { get; set; }
+        public string? RoomType { get; set; }
 
-        
 
         public void OnGet()
         {
-            //hotelService.InitializeRoomsList();
-           // hotelService.BookRoom(101, DateTime.Today, DateTime.Today.AddDays(2), 2);
+            
+            // Redirect to the  page with the search parameters
+            
         }
 
-        public IActionResult OnPost()
+
+
+        public IActionResult OnPost(DateTime CheckinDate, DateTime CheckoutDate, int NumberOfGuests, string? RoomType)
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return RedirectToPage("/Explore", new { CheckinDate, CheckoutDate, NumberOfGuests, RoomType });
             }
 
-            
             return Page();
+            
         }
     }
 }

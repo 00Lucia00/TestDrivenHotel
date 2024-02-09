@@ -187,9 +187,41 @@ namespace TestdrivenHotel.Test
             rooms.Should().BeNull(); // Check if rooms list is empty
         }
 
-      
 
         //Bookingtest
+        //--------------------GetAllBookings---------------------
+        [Fact]
+        public void GetAllBookings_WithEmptyList_ReturnsEmptyList()
+        {
+            // Arrange
+            var hotelService = new HotelService();
+
+            // Act
+            var bookings = hotelService.GetAllBookings();
+
+            // Assert
+            bookings.Should().NotBeNull(); // Check if bookings list is not null
+            bookings.Should().BeEmpty(); // Check if bookings list is empty
+        }
+
+        [Fact]
+        public void GetAllBookings_WithNonEmptyList_ReturnsAllBookings()
+        {
+            // Arrange
+            var hotelService = new HotelService();
+           
+            // Create some bookings
+            hotelService.BookRoom(101, DateTime.Today.AddDays(1), DateTime.Today.AddDays(3), 2);
+            hotelService.BookRoom(102, DateTime.Today.AddDays(2), DateTime.Today.AddDays(4), 4);
+
+            // Act
+            var bookings = hotelService.GetAllBookings();
+
+            // Assert
+            bookings.Should().NotBeNull(); // Check if bookings list is not null
+            bookings.Should().NotBeEmpty(); // Check if bookings list is not empty
+                                            // You can add more assertions to validate specific properties or conditions of the bookings
+        }
         [Fact]
         public void BookRoom_AddsBookingToList_WhenCalledWithValidParameters()
         {

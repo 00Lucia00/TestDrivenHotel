@@ -65,11 +65,11 @@ namespace TestDrivenHotel.Logic
                 availableRooms = availableRooms.Where(r => r.RoomType == roomType).ToList();
             }
 
-            if (checkInDate >= checkOutDate)
+            if (checkInDate > checkOutDate)
             {
                 throw new ArgumentException("Check-out date must be after check-in date.");
             }
-            if (numberOfGuests <= 0)
+            if (numberOfGuests == 0)
             {
                 throw new ArgumentException("Number of guests must be a positive integer.");
             }
@@ -89,6 +89,10 @@ namespace TestDrivenHotel.Logic
 
         }
 
+        public List<BookingModel> GetAllBookings()
+        {
+            return HotelData.Bookings;
+        }
 
         //Update - Uppdatera
 
