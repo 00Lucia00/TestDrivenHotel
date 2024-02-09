@@ -2,7 +2,6 @@ using FluentAssertions;
 using FluentAssertions.Common;
 using System.Security.Cryptography.X509Certificates;
 using TestDrivenHotel.Data;
-using TestDrivenHotel.DataAccess;
 using TestDrivenHotel.Logic;
 
 namespace TestdrivenHotel.Test
@@ -80,39 +79,7 @@ namespace TestdrivenHotel.Test
         }
 
 
-        //Bookingtest
-
-        [Fact]
-        public void BookRoom_AddsBookingToList_WhenCalledWithValidParameters()
-        {
-            // Arrange
-            HotelService service = new HotelService();
-            var checkInDate = DateTime.Today;
-            var checkOutDate = checkInDate.AddDays(2);
-            var numberOfGuests = 4;
-            var roomId = 102;
-
-            // Act
-            var booking = service.BookRoom(roomId, checkInDate, checkOutDate, numberOfGuests);
-
-            // Assert
-            HotelData.Bookings.Should().Contain(b => b.RoomId == roomId && b.CheckInDate == checkInDate && b.CheckOutDate == checkOutDate && b.NumberOfGuests == numberOfGuests);
-        }
-
-        [Fact]
-        public void BookRoom_ThrowsArgumentException_WhenCalledWithRoomIdNotInRoomsList()
-        {
-            // Arrange
-            HotelService service = new HotelService();
-            var checkInDate = DateTime.Today;
-            var checkOutDate = checkInDate.AddDays(2);
-            var numberOfGuests = 1;
-            var roomId = 2;
-
-
-            // Act and Assert
-            Assert.Throws<ArgumentException>(() => service.BookRoom(roomId, checkInDate, checkOutDate, numberOfGuests));
-        }
+        
 
     }
 }

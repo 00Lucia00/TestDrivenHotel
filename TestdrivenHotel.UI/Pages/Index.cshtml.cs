@@ -28,6 +28,7 @@ namespace TestdrivenHotel.UI.Pages
         public void OnGet()
         {
             //hotelService.InitializeRoomsList();
+           // hotelService.BookRoom(101, DateTime.Today, DateTime.Today.AddDays(2), 2);
         }
 
         public IActionResult OnPost()

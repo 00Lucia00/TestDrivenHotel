@@ -8,7 +8,7 @@ namespace TestDrivenHotel.Data
 {
     public class BookingModel
     {
-        public int Id { get; set; }
+        public int Id { get; set; } = 0;
         public int RoomId { get; set; }
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }

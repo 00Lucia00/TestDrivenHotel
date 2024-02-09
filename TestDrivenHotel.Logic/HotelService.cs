@@ -11,6 +11,15 @@ namespace TestDrivenHotel.Logic
 {   //Denna klass ska innehålla "CRUD"(typ) funktionalitet.
     public class HotelService 
     {
+         private readonly List<RoomModel> _rooms;
+
+         public HotelService(List<RoomModel> rooms)
+         {
+             _rooms = rooms;
+         }
+         public HotelService() { }
+        //public List<RoomModel> _rooms = HotelData.Rooms;
+
 
         //Create - Skapa
         public void InitializeRoomsList()
@@ -25,8 +34,30 @@ namespace TestDrivenHotel.Logic
             HotelData.Rooms.Add(new RoomModel { Id = 302, RoomType = "Luxury Room", Price = 200, SquareMeters = 40, GuestCapacity = 4, View = "Sea" });
             HotelData.Rooms.Add(new RoomModel { Id = 303, RoomType = "Luxury Room", Price = 200, SquareMeters = 40, GuestCapacity = 6, View = "Sea" });
         }
-
+        
         //Read - Läsa
+
+        public RoomModel GetRoomById(int roomId)
+        {
+            try
+            {
+                return _rooms.FirstOrDefault(r => r.Id == roomId);
+
+            }catch(Exception e)
+            {
+                throw new ArgumentNullException(e.Message);
+            }  
+        }
+
+        public List<RoomModel> GetRoomsByType(string roomType)
+        {
+            return _rooms.Where(r => r.RoomType == roomType.ToString()).ToList();
+        }
+
+        public List<RoomModel> GetAllRooms()
+        {
+            return _rooms;
+        }
 
         // Denna funktion hämtar tillgänliga rum utifrån sökkriteria
         public List<RoomModel> GetAvailableRooms(DateTime checkInDate, DateTime checkOutDate, int numberOfGuests, string roomType = null)
@@ -65,8 +96,10 @@ namespace TestDrivenHotel.Logic
         //Booka ett rum funktion(lägger till valda parametrar i bokade rum listan) ger tillbaka en instans av objektet
         public BookingModel BookRoom(int roomId, DateTime checkInDate, DateTime checkOutDate, int numberOfGuests)
         {
+           
             var roomBooking = new BookingModel
             {
+               
                 RoomId = roomId,
                 CheckInDate = checkInDate,
                 CheckOutDate = checkOutDate,
@@ -84,5 +117,16 @@ namespace TestDrivenHotel.Logic
         }
 
         //Delete - ta Bort
+
+        public void DeleteBooking(int bookingId)
+        {
+            var booking = HotelData.Bookings.FirstOrDefault(b => b.Id == bookingId);
+            if (booking == null)
+            {
+                throw new ArgumentException("Booking not found", nameof(bookingId));
+            }
+
+            HotelData.Bookings.Remove(booking);
+        }
     }
 }
