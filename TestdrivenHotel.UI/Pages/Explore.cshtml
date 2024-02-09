@@ -1,0 +1,39 @@
+﻿@page
+@model ExploreModel
+@{
+    ViewData["Title"] = "Explore our Available Roomes";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Available Rooms</p>
+
+<form method="post">
+    @if (Model.Rooms != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Room Type</th>
+                    <th>Price</th>
+                    <th>Square Meters</th>
+                    <th>Guest Capacity</th>
+                    <th>View</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var room in Model.Rooms)
+                {
+                    <tr>
+                        <td>@room.RoomType</td>
+                        <td>@room.Price.ToString("C")</td>
+                        <td>@room.SquareMeters</td>
+                        <td>@room.GuestCapacity</td>
+                        <td>@room.View</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</form>
+
+

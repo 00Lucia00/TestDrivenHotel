@@ -12,8 +12,19 @@ namespace TestDrivenHotel.Logic
     public class HotelService 
     {
 
-
         //Create - Skapa
+        public void InitializeRoomsList()
+        {
+            HotelData.Rooms.Add(new RoomModel { Id = 101, RoomType = "Single Room", Price = 100, SquareMeters = 20, GuestCapacity = 2, View = "Sea" });
+            HotelData.Rooms.Add(new RoomModel { Id = 102, RoomType = "Single Room", Price = 100, SquareMeters = 20, GuestCapacity = 4, View = "Garden" });
+            HotelData.Rooms.Add(new RoomModel { Id = 103, RoomType = "Single Room", Price = 100, SquareMeters = 20, GuestCapacity = 6, View = "Sea" });
+            HotelData.Rooms.Add(new RoomModel { Id = 201, RoomType = "Double Room", Price = 150, SquareMeters = 30, GuestCapacity = 2, View = "Garden" });
+            HotelData.Rooms.Add(new RoomModel { Id = 202, RoomType = "Double Room", Price = 150, SquareMeters = 30, GuestCapacity = 4, View = "Sea" });
+            HotelData.Rooms.Add(new RoomModel { Id = 203, RoomType = "Double Room", Price = 150, SquareMeters = 30, GuestCapacity = 6, View = "Garden" });
+            HotelData.Rooms.Add(new RoomModel { Id = 301, RoomType = "Luxury Room", Price = 200, SquareMeters = 40, GuestCapacity = 2, View = "Sea" });
+            HotelData.Rooms.Add(new RoomModel { Id = 302, RoomType = "Luxury Room", Price = 200, SquareMeters = 40, GuestCapacity = 4, View = "Sea" });
+            HotelData.Rooms.Add(new RoomModel { Id = 303, RoomType = "Luxury Room", Price = 200, SquareMeters = 40, GuestCapacity = 6, View = "Sea" });
+        }
 
         //Read - Läsa
 
@@ -47,9 +58,31 @@ namespace TestDrivenHotel.Logic
                 return availableRooms;
 
         }
-       
+
 
         //Update - Uppdatera
+
+        //Booka ett rum funktion(lägger till valda parametrar i bokade rum listan) ger tillbaka en instans av objektet
+        public BookingModel BookRoom(int roomId, DateTime checkInDate, DateTime checkOutDate, int numberOfGuests)
+        {
+            var roomBooking = new BookingModel
+            {
+                RoomId = roomId,
+                CheckInDate = checkInDate,
+                CheckOutDate = checkOutDate,
+                NumberOfGuests = numberOfGuests
+            };
+
+            HotelData.Bookings.Add(roomBooking);
+
+            if (!HotelData.Rooms.Any(room => room.Id == roomId))
+            {
+                throw new ArgumentException("Room not found", nameof(roomId));
+            }
+
+            return roomBooking;
+        }
+
         //Delete - ta Bort
     }
 }

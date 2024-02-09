@@ -6,27 +6,38 @@
 
 <form class="form" method="post">
     <div class="container">
-        <img src="Img / bakgrund_Image.webp" alt="" />
+        <img src="Img / bakgrund_Image.webp" class="img-fluid" alt="" />
         <h1>Welcome to the Hotel Booking System</h1>
         <p>Please enter your desired check-in and check-out dates, as well as the number of guests.</p>
-        <h2>Book a Room</h2>
+        <h2>Explore Room</h2>
     </div>
     <div class="container-fluid">
-        <label for="checkInDate">Check-in Date:</label>
-        <input type="date" name="checkInDate" id="checkInDate" required>
+        <div class="flex-xl-row">
+            <label for="checkInDate">Check-in Date:</label>
+            <input type="date" asp-for="CheckInDate" name="checkInDate" id="checkInDate" required>
 
-        <label for="checkOutDate">Check-out Date:</label>
-        <input type="date" name="checkOutDate" id="checkOutDate" required>
+            <label for="checkOutDate">Check-out Date:</label>
+            <input type="date" asp-for="CheckOutDate" name="checkOutDate" id="checkOutDate" required>
+        
+        
+            <label for="numberOfGuests">Number of Guests:</label>
+            <select name="numberOfGuests" id="numberOfGuests" asp-for="NumberOfGuests">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
 
-        <label for="numberOfGuests">Number of Guests:</label>
-        <select name="numberOfGuests" id="numberOfGuests">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-
+            <label for="roomType">Room Type:</label>
+            <select asp-for="RoomType" id="roomType" name="roomType">
+                <option value="">All</option>
+                <option value="Single Room">Single Room</option>
+                <option value="Double Room">Double Room</option>
+                <option value="Luxury Room">Luxury Room</option>
+            </select>
+        
+        </div>
         <button type="submit">Search</button>
     </div>
 </form>

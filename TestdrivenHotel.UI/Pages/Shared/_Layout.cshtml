@@ -27,14 +27,14 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Explore</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Explore">Explore</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#about">about</a> 
+                            <a class="nav-link text-dark" asp-area="" asp-page="/About">about</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Contact</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Contact">Contact</a>
                         </li>
                         
                         <li> <i class="fa fa-search"></i> </li>
@@ -53,14 +53,14 @@
             <img src="\TestdrivenHotel.UI\Img\bakgrund_Image.webp" alt="" />
         </div>
 
-        <main id="content" role="main" class="pb-3">
+        <main role="main" class="pb-3" class="container-fluid">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - TestdrivenHotel.UI - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2024 - TestdrivenHotel - <a asp-area="" asp-page="/About">About</a>
         </div>
     </footer>
 
