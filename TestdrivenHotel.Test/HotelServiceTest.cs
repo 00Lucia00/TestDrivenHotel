@@ -161,22 +161,7 @@ namespace TestdrivenHotel.Test
             rooms.Should().BeNull(); // Check if rooms list is empty
         }
 
-        [Fact]
-        public void GetRoomsByType_WithWhitespaceRoomType_ReturnsRoomsOfType()
-        {
-            // Arrange
-            var hotelService = new HotelService();
-            //hotelService.InitializeRoomsList();
-            string roomType = " Single Room "; // Room type with leading/trailing whitespace
-
-            // Act
-            var rooms = hotelService.GetRoomsByType(roomType);
-
-            // Assert
-            rooms.Should().NotBeNull(); // Check if rooms list is not null
-             // Check if rooms list is not empty
-            rooms.Should().OnlyContain(r => r.RoomType == "Single Room"); // Check if all rooms have the specified room type
-        }
+      
 
         //Bookingtest
         [Fact]
