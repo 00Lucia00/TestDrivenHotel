@@ -40,7 +40,12 @@ namespace TestDrivenHotel.Logic
 
         public List<RoomModel> GetRoomsByType(string roomType)
         {
-            return HotelData.Rooms.Where(r => r.RoomType == roomType.ToString()).ToList();
+            if (!string.IsNullOrEmpty(roomType))
+            {
+                return HotelData.Rooms.Where(r => r.RoomType == roomType.ToString()).ToList();
+            }
+
+            return null;
         }
 
         public List<RoomModel> GetAllRooms()
