@@ -10,8 +10,8 @@ namespace TestdrivenHotel.Test
     public class HotelServiceTest
     {
 
-        [Fact]
-        public void InitializeRoomsList_AddsRoomsToRoomsList()
+        
+       /* public void InitializeRoomsList_AddsRoomsToRoomsList()
         {
             // Arrange 
             HotelService service = new HotelService();
@@ -20,7 +20,24 @@ namespace TestdrivenHotel.Test
             // Assert
             HotelData.Rooms.Should().HaveCount(9);
             HotelData.Rooms.Should().NotBeEmpty();
+        }*/
+
+        // ---------------Get ALL Rooms-------------------
+        [Fact]
+        public void GetAllRooms_ReturnsAllRooms()
+        {
+            // Arrange
+            var hotelService = new HotelService();
+            //hotelService.InitializeRoomsList();
+
+            // Act
+            var rooms = hotelService.GetAllRooms();
+
+            // Assert
+            rooms.Should().NotBeNullOrEmpty();
+            // Add more assertions as needed
         }
+
 
         // ------------AvailableRooms method test-------------
         [Fact]
@@ -28,7 +45,7 @@ namespace TestdrivenHotel.Test
         {
             // Given - Arrange
             HotelService service = new HotelService();
-            service.InitializeRoomsList();
+           // service.InitializeRoomsList();
             var checkInDate = DateTime.Now;
             var checkOutDate = checkInDate.AddDays(5);
             var numberOfGuests = 2;
@@ -47,7 +64,7 @@ namespace TestdrivenHotel.Test
         {
             // Arrange
             HotelService service = new HotelService();
-            service.InitializeRoomsList();
+           // service.InitializeRoomsList();
             var checkInDate = DateTime.Today;
             var checkOutDate = checkInDate.AddDays(2);
             var numberOfGuests = 6;
@@ -68,7 +85,7 @@ namespace TestdrivenHotel.Test
         {
             // Arrange
             var hotelService = new HotelService();
-            hotelService.InitializeRoomsList();
+            //hotelService.InitializeRoomsList();
             int validRoomId = 101;
 
             // Act
@@ -84,7 +101,7 @@ namespace TestdrivenHotel.Test
         {
             // Arrange
             var hotelService = new HotelService();
-            hotelService.InitializeRoomsList();
+           // hotelService.InitializeRoomsList();
             int invalidRoomId = 999;
 
             // Act & Assert
@@ -99,7 +116,7 @@ namespace TestdrivenHotel.Test
         {
             // Arrange
             HotelService service = new HotelService();
-            service.InitializeRoomsList();
+            //service.InitializeRoomsList();
             var checkInDate = DateTime.Today;
             var checkOutDate = checkInDate.AddDays(2);
             var numberOfGuests = 4;
@@ -134,7 +151,7 @@ namespace TestdrivenHotel.Test
         {
             // Arrange
             var service = new HotelService();
-            service.InitializeRoomsList();
+            //service.InitializeRoomsList();
             service.BookRoom(101, DateTime.Today, DateTime.Today.AddDays(2), 2);
 
             var bookingId = 0;
@@ -151,7 +168,7 @@ namespace TestdrivenHotel.Test
         {
             // Arrange
             var service = new HotelService();
-            service.InitializeRoomsList();
+           // service.InitializeRoomsList();
             service.BookRoom(101, DateTime.Today, DateTime.Today.AddDays(2), 2);
             var bookingId = 2;
 

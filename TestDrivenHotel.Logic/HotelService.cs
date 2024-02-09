@@ -57,7 +57,7 @@ namespace TestDrivenHotel.Logic
             // kollar om man valt till rumtyp - annars visas alla rumtyper utifrån det andra kriterierna
             if (!string.IsNullOrEmpty(roomType))
             {
-                availableRooms = availableRooms.Where(r => r.RoomType == roomType && r.GuestCapacity >= numberOfGuests).ToList();
+                availableRooms = availableRooms.Where(r => r.RoomType == roomType).ToList();
             }
 
             if (checkInDate >= checkOutDate)
