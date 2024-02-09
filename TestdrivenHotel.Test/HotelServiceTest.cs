@@ -10,17 +10,18 @@ namespace TestdrivenHotel.Test
     public class HotelServiceTest
     {
 
-        
-       /* public void InitializeRoomsList_AddsRoomsToRoomsList()
+        [Fact]
+        public void InitializeRoomsList_AddsRoomsToRoomsList()
         {
             // Arrange 
+            HotelData.Rooms.Clear();
             HotelService service = new HotelService();
             // Act
             service.InitializeRoomsList();
             // Assert
             HotelData.Rooms.Should().HaveCount(9);
             HotelData.Rooms.Should().NotBeEmpty();
-        }*/
+        }
 
         // ---------------Get ALL Rooms-------------------
         [Fact]
@@ -179,9 +180,43 @@ namespace TestdrivenHotel.Test
             var booking = service.BookRoom(roomId, checkInDate, checkOutDate, numberOfGuests);
 
             // Assert
-            HotelData.Bookings.Should().Contain(b => b.RoomId == roomId && b.CheckInDate == checkInDate && b.CheckOutDate == checkOutDate && b.NumberOfGuests == numberOfGuests);
+            booking.Should().NotBeNull(); // Check if booking is not null
+            booking.RoomId.Should().Be(roomId); // Check if booking room ID is correct
+            HotelData.Bookings.Should().Contain(b => b.RoomId == roomId && b.CheckInDate == checkInDate && b.CheckOutDate == checkOutDate && b.NumberOfGuests == numberOfGuests);//Check if parameters exists in the static List
+            
         }
 
+        public void BookRoom_WithOverlappingBooking_ThrowsException()
+        {
+            // Arrange
+            var hotelService = new HotelService();
+            int roomId = 101;
+            DateTime checkInDate = DateTime.Today.AddDays(1);
+            DateTime checkOutDate = DateTime.Today.AddDays(3);
+            int numberOfGuests = 2;
+            // Add a booking that overlaps with the test booking
+            hotelService.BookRoom(roomId, checkInDate.AddDays(-1), checkOutDate.AddDays(1), numberOfGuests);
+
+            // Act & Assert
+            hotelService.Invoking(s => s.BookRoom(roomId, checkInDate, checkOutDate, numberOfGuests))
+                .Should().Throw<ArgumentException>()
+                .WithMessage("Room is already booked for the selected dates.");
+        }
+        [Fact]
+        public void BookRoom_WithNonexistentRoomId_ThrowsException()
+        {
+            // Arrange
+            var hotelService = new HotelService();
+            int nonexistentRoomId = 999;
+            DateTime checkInDate = DateTime.Today.AddDays(1);
+            DateTime checkOutDate = DateTime.Today.AddDays(3);
+            int numberOfGuests = 2;
+
+            // Act & Assert
+            hotelService.Invoking(s => s.BookRoom(nonexistentRoomId, checkInDate, checkOutDate, numberOfGuests))
+                .Should().Throw<ArgumentException>()
+                .WithMessage("Room not found");
+        }
         [Fact]
         public void BookRoom_ThrowsArgumentException_WhenCalledWithRoomIdNotInRoomsList()
         {

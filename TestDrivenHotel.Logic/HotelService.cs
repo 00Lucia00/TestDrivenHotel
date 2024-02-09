@@ -95,24 +95,25 @@ namespace TestDrivenHotel.Logic
         //Booka ett rum funktion(lägger till valda parametrar i bokade rum listan) ger tillbaka en instans av objektet
         public BookingModel BookRoom(int roomId, DateTime checkInDate, DateTime checkOutDate, int numberOfGuests)
         {
-           
-            var roomBooking = new BookingModel
-            {
-               
-                RoomId = roomId,
-                CheckInDate = checkInDate,
-                CheckOutDate = checkOutDate,
-                NumberOfGuests = numberOfGuests
-            };
-
-            HotelData.Bookings.Add(roomBooking);
-
             if (!HotelData.Rooms.Any(room => room.Id == roomId))
             {
-                throw new ArgumentException("Room not found", nameof(roomId));
+                throw new ArgumentException("Room not found");
             }
+            else
+            {
+                var roomBooking = new BookingModel
+                {
 
-            return roomBooking;
+                    RoomId = roomId,
+                    CheckInDate = checkInDate,
+                    CheckOutDate = checkOutDate,
+                    NumberOfGuests = numberOfGuests
+                };
+
+                HotelData.Bookings.Add(roomBooking);
+
+                return roomBooking;
+            }
         }
 
         //Delete - ta Bort
