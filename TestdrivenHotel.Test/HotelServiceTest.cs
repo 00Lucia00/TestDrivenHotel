@@ -23,6 +23,31 @@ namespace TestdrivenHotel.Test
             HotelData.Rooms.Should().NotBeEmpty();
         }
 
+        [Fact]
+        public void InitializeRoomsList_WithValidInitialization_InitializesRoomsCorrectly()
+        {
+            // Arrange
+            var hotelService = new HotelService();
+            HotelData.Rooms.Clear();
+            // Act
+
+            hotelService.InitializeRoomsList();
+
+            // Assert
+            var rooms = hotelService.GetAllRooms();
+            rooms.Should().HaveCount(9); // Check if correct number of rooms is initialized
+
+            // Check if all room properties are initialized correctly for at least one room
+            var sampleRoom = rooms.FirstOrDefault();
+            sampleRoom.Should().NotBeNull();
+            sampleRoom.Id.Should().BeGreaterThan(0);
+            sampleRoom.RoomType.Should().NotBeNullOrEmpty();
+            sampleRoom.Price.Should().BeGreaterThan(0);
+            sampleRoom.SquareMeters.Should().BeGreaterThan(0);
+            sampleRoom.GuestCapacity.Should().BeGreaterThan(0);
+            sampleRoom.View.Should().NotBeNullOrEmpty();
+        }
+
         // ---------------Get ALL Rooms-------------------
         [Fact]
         public void GetAllRooms_ReturnsAllRooms()
@@ -186,6 +211,7 @@ namespace TestdrivenHotel.Test
             
         }
 
+        // -------------EdgeCase----BookRoom------------------
         public void BookRoom_WithOverlappingBooking_ThrowsException()
         {
             // Arrange
@@ -217,6 +243,7 @@ namespace TestdrivenHotel.Test
                 .Should().Throw<ArgumentException>()
                 .WithMessage("Room not found");
         }
+
         [Fact]
         public void BookRoom_ThrowsArgumentException_WhenCalledWithRoomIdNotInRoomsList()
         {
