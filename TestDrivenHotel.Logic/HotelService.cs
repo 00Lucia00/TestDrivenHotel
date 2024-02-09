@@ -11,16 +11,7 @@ namespace TestDrivenHotel.Logic
 {   //Denna klass ska innehålla "CRUD"(typ) funktionalitet.
     public class HotelService 
     {
-         private readonly List<RoomModel> _rooms;
-
-         public HotelService(List<RoomModel> rooms)
-         {
-             _rooms = rooms;
-         }
-         public HotelService() { }
-        //public List<RoomModel> _rooms = HotelData.Rooms;
-
-
+         
         //Create - Skapa
         public void InitializeRoomsList()
         {
@@ -34,29 +25,27 @@ namespace TestDrivenHotel.Logic
             HotelData.Rooms.Add(new RoomModel { Id = 302, RoomType = "Luxury Room", Price = 200, SquareMeters = 40, GuestCapacity = 4, View = "Sea" });
             HotelData.Rooms.Add(new RoomModel { Id = 303, RoomType = "Luxury Room", Price = 200, SquareMeters = 40, GuestCapacity = 6, View = "Sea" });
         }
-        
+
         //Read - Läsa
 
         public RoomModel GetRoomById(int roomId)
         {
-            try
+            var room = HotelData.Rooms.FirstOrDefault(r => r.Id == roomId);
+            if (room == null)
             {
-                return _rooms.FirstOrDefault(r => r.Id == roomId);
-
-            }catch(Exception e)
-            {
-                throw new ArgumentNullException(e.Message);
-            }  
+                throw new ArgumentException($"Room with ID {roomId} not found.");
+            }
+            return room;
         }
 
         public List<RoomModel> GetRoomsByType(string roomType)
         {
-            return _rooms.Where(r => r.RoomType == roomType.ToString()).ToList();
+            return HotelData.Rooms.Where(r => r.RoomType == roomType.ToString()).ToList();
         }
 
         public List<RoomModel> GetAllRooms()
         {
-            return _rooms;
+            return HotelData.Rooms;
         }
 
         // Denna funktion hämtar tillgänliga rum utifrån sökkriteria
@@ -68,12 +57,16 @@ namespace TestDrivenHotel.Logic
             // kollar om man valt till rumtyp - annars visas alla rumtyper utifrån det andra kriterierna
             if (!string.IsNullOrEmpty(roomType))
             {
-                availableRooms = availableRooms.Where(r => r.RoomType == roomType).ToList();
+                availableRooms = availableRooms.Where(r => r.RoomType == roomType && r.GuestCapacity >= numberOfGuests).ToList();
             }
-            if(checkInDate < DateTime.Today || checkOutDate < DateTime.Today.AddDays(1))
+
+            if (checkInDate >= checkOutDate)
             {
-                availableRooms.Clear();
-                return availableRooms;
+                throw new ArgumentException("Check-out date must be after check-in date.");
+            }
+            if (numberOfGuests <= 0)
+            {
+                throw new ArgumentException("Number of guests must be a positive integer.");
             }
             // kollar ifall datumen man sökt efter är tillgängliga och inte ligger i bookings listan
             foreach (var booking in HotelData.Bookings)
@@ -86,7 +79,8 @@ namespace TestDrivenHotel.Logic
                      availableRooms.Remove(availableRooms.First(r => r.Id == booking.RoomId));
                 }
              }
-                return availableRooms;
+          
+            return availableRooms;
 
         }
 
@@ -121,6 +115,7 @@ namespace TestDrivenHotel.Logic
         public void DeleteBooking(int bookingId)
         {
             var booking = HotelData.Bookings.FirstOrDefault(b => b.Id == bookingId);
+           
             if (booking == null)
             {
                 throw new ArgumentException("Booking not found", nameof(bookingId));
