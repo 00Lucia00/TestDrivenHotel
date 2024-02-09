@@ -110,6 +110,40 @@ namespace TestdrivenHotel.Test
                 .WithMessage($"Room with ID {invalidRoomId} not found.");
         }
 
+        //------------------GETBYRoomType-------------------------------
+        [Fact]
+        public void GetRoomsByType_WithValidType_ReturnsRoomsOfType()
+        {
+            // Arrange
+            var hotelService = new HotelService();
+            //hotelService.InitializeRoomsList();
+            string roomType = "Single Room"; // Assuming "Single Room" is a valid room type
+
+            // Act
+            var rooms = hotelService.GetRoomsByType(roomType);
+
+            // Assert
+            rooms.Should().NotBeNull(); // Check if rooms list is not null
+            rooms.Should().NotBeEmpty(); // Check if rooms list is not empty
+            rooms.Should().OnlyContain(r => r.RoomType == roomType); // Check if all rooms have the specified room type
+        }
+
+        [Fact]
+        public void GetRoomsByType_WithInvalidType_ReturnsEmptyList()
+        {
+            // Arrange
+            var hotelService = new HotelService();
+            //hotelService.InitializeRoomsList();
+            string roomType = "Nonexistent Room Type"; // Assuming "Nonexistent Room Type" is not a valid room type
+
+            // Act
+            var rooms = hotelService.GetRoomsByType(roomType);
+
+            // Assert
+            rooms.Should().NotBeNull(); // Check if rooms list is not null
+            rooms.Should().BeEmpty(); // Check if rooms list is empty
+        }
+
         //Bookingtest
         [Fact]
         public void BookRoom_AddsBookingToList_WhenCalledWithValidParameters()
