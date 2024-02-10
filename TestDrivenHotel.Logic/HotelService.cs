@@ -69,7 +69,7 @@ namespace TestDrivenHotel.Logic
             {
                 throw new ArgumentException("Check-out date must be after check-in date.");
             }
-            if (numberOfGuests == 0)
+            if (numberOfGuests < 0)
             {
                 throw new ArgumentException("Number of guests must be a positive integer.");
             }

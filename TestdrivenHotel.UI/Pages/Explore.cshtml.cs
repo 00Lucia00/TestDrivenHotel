@@ -24,7 +24,6 @@ namespace TestdrivenHotel.UI.Pages
 
         public List<RoomModel> SearchResults { get; set; }
 
-        
 
         public IActionResult OnGet(DateTime CheckInDate, DateTime CheckOutDate, int NumberOfGuests, string RoomType)
         {

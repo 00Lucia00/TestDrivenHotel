@@ -6,12 +6,20 @@
 <h1 class="text-body">@ViewData["Title"]</h1>
 
 
-
 <form method="post" class="bg-light">
     @if (Model.SearchResults != null)
     {
-        <table class="table">
-            <h4 class="text-body">Available Rooms</h4>
+        <table class="table table-light table-striped">
+
+            <div class="d-flex flex-row text-body" >
+                <h4 class="p-2">Available Rooms</h4>
+                <p class="p-2">Check-in Date: @Model.CheckinDate.ToShortDateString()</p>
+                <p class ="p-2">Check-out Date: @Model.CheckoutDate.ToShortDateString()</p>
+                <p class ="p-2">Number of Guests: @Model.NumberOfGuests</p>
+                <p class="p-2">Room Type: @Model.RoomType</p>
+            </div>
+            
+
             <thead>
                 <tr>
                     <td>Room Number</td>
@@ -33,7 +41,7 @@
                         <td>@room.RoomType</td>
                         <td>@room.Price.ToString("C")</td>
                         <td>
-                            <a asp-page="./Booking" asp-route-roomId="@room.Id">Book</a>
+                            <button type="submit"><a class="link-offset-2 link-underline link-underline-opacity-0 text-light" asp-page="./Booking" asp-route-roomId="@room.Id">Book</a></button>
                         </td>
                     </tr>
                 }
