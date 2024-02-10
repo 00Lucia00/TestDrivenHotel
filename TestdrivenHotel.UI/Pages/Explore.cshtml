@@ -1,0 +1,53 @@
+﻿@page
+@model ExploreModel
+@{
+    ViewData["Title"] = "Explore Our Roomes";
+}
+<h1 class="text-body">@ViewData["Title"]</h1>
+
+
+<form method="post" class="bg-light">
+    @if (Model.SearchResults != null)
+    {
+        <table class="table table-light table-striped">
+
+            <div class="d-flex flex-row text-body" >
+                <h4 class="p-2">Available Rooms</h4>
+                <p class="p-2">Check-in Date: @Model.CheckinDate.ToShortDateString()</p>
+                <p class ="p-2">Check-out Date: @Model.CheckoutDate.ToShortDateString()</p>
+                <p class ="p-2">Number of Guests: @Model.NumberOfGuests</p>
+                <p class="p-2">Room Type: @Model.RoomType</p>
+            </div>
+            
+
+            <thead>
+                <tr>
+                    <td>Room Number</td>
+                    <th>Square Meters</th>
+                    <th>Guest Capacity</th>
+                    <th>View</th>
+                    <th>Room Type</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var room in Model.SearchResults)
+                {
+                    <tr>
+                        <td>@room.Id</td>
+                        <td>@room.SquareMeters</td>
+                        <td>@room.GuestCapacity</td>
+                        <td>@room.View</td>
+                        <td>@room.RoomType</td>
+                        <td>@room.Price.ToString("C")</td>
+                        <td>
+                            <button type="submit"><a class="link-offset-2 link-underline link-underline-opacity-0 text-light" asp-page="./Booking" asp-route-roomId="@room.Id">Book</a></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</form>
+
+
