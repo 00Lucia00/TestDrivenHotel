@@ -8,21 +8,20 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TestdrivenHotel.UI.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body class="backImg">
     <header id="header">
         
-        <nav id="nav ul li" class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom navbar-light bg-light">
             <div class="container">
-                <div id="logo">
-                    <img src="" />
-                    <a class="navbar-brand" asp-area="" asp-page="/Index"> LUCIASHOTEL</a>
+                <div>
+                    <a class="navbar-brand" asp-area="" asp-page="/Index"> 
+                        <img src="https://olssonweb.se/wp/wp-content/uploads/lussebulle.png" id="logo"/>
+                        LUCIASHOTEL
+                    </a>
                 </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
- 
-                <div id="navigation">
-                    <ul class="navbar-nav flex-grow-1">
+              
+                <div class ="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 justify-content-end">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
@@ -39,7 +38,7 @@
                         
                         <li> <i class="fa fa-search"></i> </li>
 
-                        <li> <button class="primary-btn">BOOK NOW</button> </li>
+                        <li> <button class="primary-btn"><a asp-page="/Booking">BOOK NOW </a></button>  </li>
                         
                     </ul>
                 </div>
@@ -47,18 +46,13 @@
         </nav>
 
     </header>
-    <div class="container">
-        <div class="text-center">
-            <h1 class="display-4">Welcome to Lucias Hotel</h1>
-            <img src="\TestdrivenHotel.UI\Img\bakgrund_Image.webp" alt="" />
-        </div>
-
-        <main role="main" class="pb-3" class="container-fluid">
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer bg-light text-muted opacity-75">
         <div class="container">
             &copy; 2024 - TestdrivenHotel - <a asp-area="" asp-page="/About">About</a>
         </div>

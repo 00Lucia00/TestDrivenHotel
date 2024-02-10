@@ -8,51 +8,40 @@ namespace TestdrivenHotel.UI.Pages
 {
     public class ExploreModel : PageModel
     {
-        HotelService _roomService = new HotelService();
-
-       
-
-        [BindProperty]
-        public RoomModel Room { get; set; }
-        
-        [BindProperty]
-        public BookingModel Booking { get; set; }
-
-        [BindProperty]
-        public int roomId { get; set; }
-
-        [BindProperty (SupportsGet = true)]
-        public DateTime CheckInDate { get; set; }
+        HotelService hotelService = new();
 
         [BindProperty(SupportsGet = true)]
-        public DateTime CheckOutDate { get; set; }
+        public DateTime CheckinDate { get; set; }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
+        public DateTime CheckoutDate { get; set; }
+
+        [BindProperty(SupportsGet = true)]
         public int NumberOfGuests { get; set; }
-        [BindProperty]
-        public string? RoomType { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string RoomType { get; set; }
 
-        public List<BookingModel> BookedRooms { get; set; }
-        public List<RoomModel> Rooms { get; set; }
+        public List<RoomModel> SearchResults { get; set; }
 
-        public void OnGet()
-        {
-
-            Rooms = _roomService.GetAvailableRooms(CheckInDate, CheckOutDate, NumberOfGuests, RoomType);
-        }
-
-        public IActionResult OnPost()
-        {
-            
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            Rooms = _roomService.GetAvailableRooms(CheckInDate, CheckOutDate, NumberOfGuests, RoomType);
         
+
+        public IActionResult OnGet(DateTime CheckInDate, DateTime CheckOutDate, int NumberOfGuests, string RoomType)
+        {
+            SearchResults = hotelService.GetAvailableRooms(CheckInDate, CheckOutDate, NumberOfGuests, RoomType);
+           
             return Page();
         }
+
+        public IActionResult actionResult()
+        {
+            if (!ModelState.IsValid)
+            {
+                
+            }
+            return Page();
+        }
+
+        
     }
 }

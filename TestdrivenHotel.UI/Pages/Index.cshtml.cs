@@ -32,15 +32,14 @@ namespace TestdrivenHotel.UI.Pages
         }
 
 
-
         public IActionResult OnPost(DateTime CheckinDate, DateTime CheckoutDate, int NumberOfGuests, string? RoomType)
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToPage("/Explore", new { CheckinDate, CheckoutDate, NumberOfGuests, RoomType });
+                return Page();
             }
-
-            return Page();
+            return RedirectToPage("/Explore", new { CheckinDate, CheckoutDate, NumberOfGuests, RoomType });
+            
             
         }
     }

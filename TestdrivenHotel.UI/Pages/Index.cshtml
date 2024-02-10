@@ -4,23 +4,26 @@
     ViewData["Title"] = "Home page";
 }
 
-<form class="form" method="post">
-    <div class="container">
-        <img src="Img / bakgrund_Image.webp" class="img-fluid" alt="" />
-        <h1>Welcome to the Hotel Booking System</h1>
-        <p>Please enter your desired check-in and check-out dates, as well as the number of guests.</p>
-        <h2>Explore Room</h2>
-    </div>
-    <div class="container-fluid">
-        <div class="flex-xl-row">
-            <label for="checkInDate">Check-in Date:</label>
-            <input type="date" asp-for="CheckInDate" name="checkInDate" id="checkInDate" required>
+<div class="text-center">
+    <h1 class="display-4">Welcome to the Hotel Booking System</h1>
+    <h4>Please enter your desired check-in and check-out dates, as well as the number of guests.</h4>
+</div>
 
-            <label for="checkOutDate">Check-out Date:</label>
+<form class="form" method="post">
+    
+    <div class="container-lg bg-body opacity-75">
+        <h5 class="p-1">Explore our avaliable room</h5>
+        <div class="d-lg-flex justify-content-center">
+            <div class="p-lg-1">
+                <label for="checkInDate">Check-in Date:</label>
+            <input type="date" asp-for="CheckInDate" name="checkInDate" id="checkInDate" required>
+            </div>
+            <div class="p-lg-1">
+                <label for="checkOutDate">Check-out Date:</label>
             <input type="date" asp-for="CheckOutDate" name="checkOutDate" id="checkOutDate" required>
-        
-        
-            <label for="numberOfGuests">Number of Guests:</label>
+            </div>
+            <div class="p-1">
+                <label for="numberOfGuests">Number of Guests:</label>
             <select name="numberOfGuests" id="numberOfGuests" asp-for="NumberOfGuests">
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -28,17 +31,21 @@
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
-
-            <label for="roomType">Room Type:</label>
-            <select asp-for="RoomType" id="roomType" name="roomType">
-                <option value="">All</option>
-                <option value="Single Room">Single Room</option>
-                <option value="Double Room">Double Room</option>
-                <option value="Luxury Room">Luxury Room</option>
-            </select>
-        
+             </div>
+            <div class="p-1" >
+                <label for="roomType">Room Type:</label>
+                <select asp-for="RoomType" id="roomType" name="roomType">
+                    <option value="">All</option>
+                    <option value="Single Room">Single Room</option>
+                    <option value="Double Room">Double Room</option>
+                    <option value="Luxury Room">Luxury Room</option>
+                </select>
+            </div>
+            <div class="p-1">
+                <button type="submit">Search</button>
+            </div>
         </div>
-        <button type="submit">Search</button>
+        
     </div>
 </form>
 

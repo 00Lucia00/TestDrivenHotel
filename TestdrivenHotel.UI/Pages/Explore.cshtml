@@ -1,34 +1,40 @@
 ﻿@page
 @model ExploreModel
 @{
-    ViewData["Title"] = "Explore our Available Roomes";
+    ViewData["Title"] = "Explore Our Roomes";
 }
-<h1>@ViewData["Title"]</h1>
+<h1 class="text-body">@ViewData["Title"]</h1>
 
-<p>Available Rooms</p>
 
-<form method="post">
-    @if (Model.Rooms != null)
+
+<form method="post" class="bg-light">
+    @if (Model.SearchResults != null)
     {
         <table class="table">
+            <h4 class="text-body">Available Rooms</h4>
             <thead>
                 <tr>
-                    <th>Room Type</th>
-                    <th>Price</th>
+                    <td>Room Number</td>
                     <th>Square Meters</th>
                     <th>Guest Capacity</th>
                     <th>View</th>
+                    <th>Room Type</th>
+                    <th>Price</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var room in Model.Rooms)
+                @foreach (var room in Model.SearchResults)
                 {
                     <tr>
-                        <td>@room.RoomType</td>
-                        <td>@room.Price.ToString("C")</td>
+                        <td>@room.Id</td>
                         <td>@room.SquareMeters</td>
                         <td>@room.GuestCapacity</td>
                         <td>@room.View</td>
+                        <td>@room.RoomType</td>
+                        <td>@room.Price.ToString("C")</td>
+                        <td>
+                            <a asp-page="./Booking" asp-route-roomId="@room.Id">Book</a>
+                        </td>
                     </tr>
                 }
             </tbody>
