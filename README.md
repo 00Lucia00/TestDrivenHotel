@@ -10,6 +10,19 @@ Aktiviteter:
 - Formulera användarberättelse(r) (minst 1!)
 - Lista funktioner.
 
+  **AnvändarBerättelser**
+- Som en hotellgäst vill jag kunna söka och boka tillgängliga rum via en webbsida.
+   -	Möjlighet att välja in- och utcheckningsdatum och rumstyp (enkel-, dubbelrum) på en Razor Page-sida.
+   - Visa en lista över tillgängliga rum som matchar kriterierna.
+   - Möjlighet att boka ett rum genom webbgränssnittet
+- Som hotellgäst vill jag kunna se vad Hotellet erbjuder via webbsidan
+   - kunna se bilder på olika typer av rum
+   - kunna välja ett rum för att se vad rummet erbjuder och pris
+- Som hotell gäst vill jag kunna läsa om hotellet och kontakta personal
+  -	Visa hotel info på en kontakt sida
+  - Möjlighet att läsa om hotellet på en About sida
+
+
 **2. Designa systemarkitekturen**
 
 Mål: Skapa en plan för ditt system.
