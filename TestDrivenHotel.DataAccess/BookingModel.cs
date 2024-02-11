@@ -13,5 +13,6 @@ namespace TestDrivenHotel.Data
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
         public int NumberOfGuests { get; set; } = 1;
+        public int? guestId { get; set; }
     }
 }

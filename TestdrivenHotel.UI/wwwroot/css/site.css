@@ -23,19 +23,21 @@ html {
   min-height: 100%;
 }
 
+
+
 body {
-    background-image: url("https://thoresta.se/wp-content/uploads/2021/11/Herrga%CC%8Ardsbild-ho%CC%88st-scaled.jpg");
-    margin-bottom: 20px;
+    
+   
     font-family: Arial, sans-serif;
     padding: 0;
     margin: 0;
 }
 
+
+
 h1{
     font-weight: 400;
 }
-
-
 
 header ul{
     display: inline-block;
@@ -50,6 +52,8 @@ header ul li{
     height: 40px;
     width: 50px;
 }
+
+
 
 
 #navigation {
@@ -115,8 +119,9 @@ button {
     }
 
 .backImg {
-    
+    background-image: url("https://thoresta.se/wp-content/uploads/2021/11/Herrga%CC%8Ardsbild-ho%CC%88st-scaled.jpg");
     background-size: cover;
     background-position: center;
-    color: white;
+    --bs-bg-opacity: 0.5;
+    background-color: antiquewhite, var(--bs-bg-opacity);
 }

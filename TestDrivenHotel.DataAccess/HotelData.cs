@@ -26,6 +26,6 @@ namespace TestDrivenHotel.Data
        
         public static List<BookingModel> Bookings = new List<BookingModel>();
 
-        public static List<GuestModel> BookingIds = new List<GuestModel>();
+        public static List<GuestModel> Guests= new List<GuestModel>();
     }
 }

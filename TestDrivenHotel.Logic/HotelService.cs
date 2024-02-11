@@ -26,15 +26,36 @@ namespace TestDrivenHotel.Logic
             HotelData.Rooms.Add(new RoomModel { Id = 303, RoomType = "Luxury Room", Price = 200, SquareMeters = 40, GuestCapacity = 6, View = "Sea" });
         }
 
+        public GuestModel RegisterGuest(string firstName, string lastName, string email)
+        {
+            var guest = new GuestModel
+            {
+                Id = HotelData.Guests.Count + 1,
+                firstName = firstName,
+                lastName = lastName,
+                CustomerEmail = email
+            };
+
+            HotelData.Guests.Add(guest);
+
+            return guest;
+        }
+
         //Read - Läsa
+        public List<RoomModel> GetAllRooms()
+        {
+            return HotelData.Rooms;
+        }
 
         public RoomModel GetRoomById(int roomId)
         {
             var room = HotelData.Rooms.FirstOrDefault(r => r.Id == roomId);
+           
             if (room == null)
             {
                 throw new ArgumentException($"Room with ID {roomId} not found.");
             }
+           
             return room;
         }
 
@@ -46,11 +67,6 @@ namespace TestDrivenHotel.Logic
             }
 
             return null;
-        }
-
-        public List<RoomModel> GetAllRooms()
-        {
-            return HotelData.Rooms;
         }
 
         // Denna funktion hämtar tillgänliga rum utifrån sökkriteria
@@ -97,7 +113,7 @@ namespace TestDrivenHotel.Logic
         //Update - Uppdatera
 
         //Booka ett rum funktion(lägger till valda parametrar i bokade rum listan) ger tillbaka en instans av objektet
-        public BookingModel BookRoom(int roomId, DateTime checkInDate, DateTime checkOutDate, int numberOfGuests)
+        public BookingModel BookRoom(int roomId, DateTime checkInDate, DateTime checkOutDate, int numberOfGuests, int? guestId)
         {
             if (!HotelData.Rooms.Any(room => room.Id == roomId))
             {
@@ -111,12 +127,34 @@ namespace TestDrivenHotel.Logic
                     RoomId = roomId,
                     CheckInDate = checkInDate,
                     CheckOutDate = checkOutDate,
-                    NumberOfGuests = numberOfGuests
+                    NumberOfGuests = numberOfGuests,
+                    guestId = guestId
                 };
 
                 HotelData.Bookings.Add(roomBooking);
 
                 return roomBooking;
+            }
+        }
+
+        public void UpdateBooking( int gustId, int roomId, int NewNrOfGuests, DateTime NewCheckInDate, DateTime NewCheckOutDate)
+        {
+            var roomToBeUpdated = HotelData.Bookings.FirstOrDefault(r => r.guestId == gustId); 
+            var UpdateRoom = HotelData.Rooms.FirstOrDefault(r => r.Id == roomId);
+            
+
+            if (roomToBeUpdated != null)
+            {
+                roomToBeUpdated.CheckInDate = NewCheckInDate;
+                roomToBeUpdated.CheckOutDate = NewCheckOutDate;
+                if (NewNrOfGuests > 0)
+                {
+                    roomToBeUpdated.NumberOfGuests = NewNrOfGuests;
+                }
+                if (UpdateRoom != null)
+                {
+                    roomToBeUpdated.RoomId = UpdateRoom.Id;
+                }
             }
         }
 

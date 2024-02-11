@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TestdrivenHotel.UI.styles.css" asp-append-version="true" />
 </head>
-<body class="backImg">
+<body id="bg-subtle" class="backImg">
     <header id="header">
         
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom navbar-light bg-light">
@@ -38,7 +38,7 @@
                         
                         <li> <i class="fa fa-search"></i> </li>
 
-                        <li> <button class="primary-btn"><a class="link-light" asp-page="/Booking"> BOOK NOW </a> </button>  </li>
+                        <li> <button class="primary-btn"><a class="link-light" asp-page="/Home"> BOOK NOW </a> </button>  </li>
                         
                     </ul>
                 </div>
@@ -46,7 +46,8 @@
         </nav>
 
     </header>
-    <div class="container-fluid">
+    
+    <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

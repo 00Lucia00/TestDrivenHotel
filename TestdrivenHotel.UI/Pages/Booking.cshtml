@@ -1,5 +1,61 @@
 ﻿@page
 @model TestdrivenHotel.UI.Pages.BookingModel
 @{
+	ViewData["Title"] = "contact deatails page";
 }
-<h1>You made it to the booking site</h1>
+<div class="container-fluid bg-light opacity-75 align-content-center">
+    <div class="text-center text-body">
+        <h1 class="display-4 p-2">Booking System </h1>
+        <div class="flex-md-column">
+            <h4>Reserve a room </h4>
+        </div>
+    </div>
+   <div>
+       <h2> Your booking is done. See you @Model.CheckInDate</h2>
+   </div>
+
+
+    @if(Model.RoomId == null)
+    {
+    <form class ="form" method="post">
+        <p class="text-center">Enter your desired check-in and check-out dates, as well as the number of guests for your desired room.</p>
+        <div class="d-flex bg-body ">
+            <h5 class="p-4 text-light">Check avaliabilety</h5>
+
+            <div class="d-inline-flex justify-content-center text-light">
+                <div class="p-2">
+                    <label for="checkInDate">Check-in Date:</label>
+                    <input type="date" asp-for="CheckInDate" name="checkInDate" id="checkInDate" required>
+                </div>
+                <div class="p-2">
+                    <label for="checkOutDate">Check-out Date:</label>
+                    <input type="date" asp-for="CheckOutDate" name="checkOutDate" id="checkOutDate" required>
+                </div>
+                <div class="p-2">
+                    <label for="numberOfGuests">Guests:</label>
+                    <select name="numberOfGuests" id="numberOfGuests" asp-for="NumberOfGuests">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="p-2">
+                    <label for="roomType">Room Type:</label>
+                    <select asp-for="RoomType" id="roomType" name="roomType">
+                        <option value="">All</option>
+                        <option value="Single Room">Single Room</option>
+                        <option value="Double Room">Double Room</option>
+                        <option value="Luxury Room">Luxury Room</option>
+                    </select>
+                </div>
+                <div class="p-4">
+                    <button type="submit">Search</button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+    }
+</div>

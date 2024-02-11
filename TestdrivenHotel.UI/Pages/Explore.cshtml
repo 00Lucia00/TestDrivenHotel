@@ -2,8 +2,22 @@
 @model ExploreModel
 @{
     ViewData["Title"] = "Explore Our Roomes";
+   
 }
 <h1 class="text-body">@ViewData["Title"]</h1>
+
+@if (Model.SearchResults == null)
+{
+    <h1>Need to check avalabilety</h1>
+    <h2>Go back to home page</h2>
+
+        <div>
+            <h2>Room Not avalilabe at this time</h2>
+            
+        </div>
+    
+}
+
 
 
 <form method="post" class="bg-light">
@@ -41,7 +55,7 @@
                         <td>@room.RoomType</td>
                         <td>@room.Price.ToString("C")</td>
                         <td>
-                            <button type="submit"><a class="link-offset-2 link-underline link-underline-opacity-0 text-light" asp-page="./Booking" asp-route-roomId="@room.Id">Book</a></button>
+                            <button type="submit" ><a class="link-offset-2 link-underline link-underline-opacity-0 text-light" asp-page="./Booking" asp-route-roomId="@room.Id">Book</a></button>
                         </td>
                     </tr>
                 }
@@ -49,5 +63,6 @@
         </table>
     }
 </form>
+
 
 
