@@ -118,7 +118,7 @@ namespace TestdrivenHotel.Test
         }
 
         // ------------------UpdateBooking----------------------------
-    
+
         [Fact]
         public void UpdateBooking_WithNonExistingGuestId_DoesNotUpdateBooking()
         {
@@ -215,5 +215,24 @@ namespace TestdrivenHotel.Test
             Assert.Throws<ArgumentException>(() => service.DeleteBooking(bookingId));
         }
 
-    }
-}
+        [Fact]
+        public void RegisterGuest_ValidInput_GuestIsAddedToList()
+        {
+            // Arrange
+            var service = new HotelService();
+
+            // Act
+            var guest = service.RegisterGuest("John", "Doe", "john.doe@example.com");
+
+            // Assert
+            guest.Should().NotBeNull();
+            guest.firstName.Should().Be("John");
+            guest.lastName.Should().Be("Doe");
+            guest.CustomerEmail.Should().Be("john.doe@example.com");
+            HotelData.Guests.Should().Contain(guest);
+            HotelData.Guests.Count.Should().Be(1);
+        }
+
+
+
+    }   }   
