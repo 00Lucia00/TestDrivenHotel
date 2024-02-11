@@ -19,8 +19,8 @@ namespace TestdrivenHotel.Test
             // Act
             service.InitializeRoomsList();
             // Assert
-            HotelData.Rooms.Should().HaveCount(9);
-            HotelData.Rooms.Should().NotBeEmpty();
+            HotelData.Rooms.Should().HaveCount(9);-Using fluent assertions to use more natural language
+            HotelData.Rooms.Should().NotBeEmpty(); 
         }
 
         [Fact]
@@ -61,7 +61,6 @@ namespace TestdrivenHotel.Test
 
             // Assert
             rooms.Should().NotBeNullOrEmpty();
-            // Add more assertions as needed
         }
 
 
@@ -78,7 +77,7 @@ namespace TestdrivenHotel.Test
 
             // When - Act
             var availableRooms = service.GetAvailableRooms(checkInDate, checkOutDate, numberOfGuests);
-            //Then - Assert -Using fluent assertions to use more natural language
+            //Then - Assert 
             availableRooms.Should().NotBeEmpty();
             availableRooms.Should().OnlyContain(r => r.GuestCapacity >= numberOfGuests);
 
@@ -143,14 +142,14 @@ namespace TestdrivenHotel.Test
             // Arrange
             var hotelService = new HotelService();
             //hotelService.InitializeRoomsList();
-            string roomType = "Single Room"; // Assuming "Single Room" is a valid room type
+            string roomType = "Single Room";
 
             // Act
             var rooms = hotelService.GetRoomsByType(roomType);
 
             // Assert
-            rooms.Should().NotBeNull(); // Check if rooms list is not null
-            rooms.Should().NotBeEmpty(); // Check if rooms list is not empty
+            rooms.Should().NotBeNull(); 
+            rooms.Should().NotBeEmpty(); 
             rooms.Should().OnlyContain(r => r.RoomType == roomType); // Check if all rooms have the specified room type
         }
 
@@ -160,14 +159,14 @@ namespace TestdrivenHotel.Test
             // Arrange
             var hotelService = new HotelService();
             //hotelService.InitializeRoomsList();
-            string roomType = "Nonexistent Room Type"; // Assuming "Nonexistent Room Type" is not a valid room type
+            string roomType = "Nonexistent Room Type"; // giving a non valid room type
 
             // Act
             var rooms = hotelService.GetRoomsByType(roomType);
 
             // Assert
-            rooms.Should().NotBeNull(); // Check if rooms list is not null
-            rooms.Should().BeEmpty(); // Check if rooms list is empty
+            rooms.Should().NotBeNull(); 
+            rooms.Should().BeEmpty(); 
         }
         // ---------------edgecases---GetRoom by type------------------
 
@@ -184,7 +183,7 @@ namespace TestdrivenHotel.Test
 
             // Assert
 
-            rooms.Should().BeNull(); // Check if rooms list is empty
+            rooms.Should().BeNull(); // Check if rooms list is null
         }
 
 
