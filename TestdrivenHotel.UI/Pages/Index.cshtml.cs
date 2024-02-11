@@ -27,7 +27,7 @@ namespace TestdrivenHotel.UI.Pages
         public void OnGet()
         {
             
-            // Redirect to the  page with the search parameters
+            
             
         }
 
@@ -38,9 +38,9 @@ namespace TestdrivenHotel.UI.Pages
             {
                 return Page();
             }
-            return RedirectToPage("/Explore", new { CheckinDate, CheckoutDate, NumberOfGuests, RoomType });
-            
-            
+            return RedirectToPage("/Explore", new { CheckinDate, CheckoutDate, NumberOfGuests, RoomType });// Redirect to the  page with the search parameters
+
+
         }
     }
 }

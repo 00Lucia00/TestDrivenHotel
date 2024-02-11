@@ -9,7 +9,7 @@ namespace TestDrivenHotel.Data
 {
     public class GuestModel
     {
-        public int Id { get; set; }
+        public int Id { get; set; } = 0;
         [Required]
         public string firstName { get; set; }
         [Required]

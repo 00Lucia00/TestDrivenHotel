@@ -26,6 +26,21 @@ namespace TestDrivenHotel.Logic
             HotelData.Rooms.Add(new RoomModel { Id = 303, RoomType = "Luxury Room", Price = 200, SquareMeters = 40, GuestCapacity = 6, View = "Sea" });
         }
 
+        public GuestModel RegisterGuest(string firstName, string lastName, string email)
+        {
+            var guest = new GuestModel
+            {
+                Id = HotelData.Guests.Count + 1,
+                firstName = firstName,
+                lastName = lastName,
+                CustomerEmail = email
+            };
+
+            HotelData.Guests.Add(guest);
+
+            return guest;
+        }
+
         //Read - Läsa
         public List<RoomModel> GetAllRooms()
         {
