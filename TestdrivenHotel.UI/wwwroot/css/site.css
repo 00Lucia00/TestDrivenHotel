@@ -1,10 +1,16 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing:content-box;
+}
+
 html {
   font-size: 14px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   html {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
@@ -17,6 +23,105 @@ html {
   min-height: 100%;
 }
 
+
+
 body {
-  margin-bottom: 60px;
+    
+   
+    font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+h1{
+    font-weight: 400;
+}
+
+header ul{
+    display: inline-block;
+}
+header ul li{
+    display: inline-block;
+    text-transform:uppercase;
+}
+
+#logo {
+    
+    height: 40px;
+    width: 50px;
+}
+
+
+
+
+#navigation {
+    display: flex;
+    align-items: end;
+}
+
+nav ul li {
+        display: inline-block;
+        text-transform: uppercase;
+        color: #ffffff;
+        margin: 0 10px;
+        text-decoration: none;
+}
+
+#content {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+.flex{
+    display:flex;
+}
+.flex_space{
+    display:flex;
+    justify-content: space-between
+}
+
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input, select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #666600;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    button:hover {
+        background-color: #999900;
+    }
+
+.backImg {
+    background-image: url("https://thoresta.se/wp-content/uploads/2021/11/Herrga%CC%8Ardsbild-ho%CC%88st-scaled.jpg");
+    background-size: cover;
+    background-position: center;
+    --bs-bg-opacity: 0.5;
+    background-color: antiquewhite, var(--bs-bg-opacity);
 }

@@ -1,26 +1,24 @@
 ﻿@page
-@model IndexModel
+@model TestdrivenHotel.UI.Pages.BookingModel
 @{
-    ViewData["Title"] = "Home page";
+	ViewData["Title"] = "contact deatails page";
 }
-
 <div class="container-fluid bg-light opacity-75 align-content-center">
     <div class="text-center text-body">
-        <h1 class="display-4">Welcome to Lucias Mansion Hotel </h1>
+        <h1 class="display-4 p-2">Booking System </h1>
         <div class="flex-md-column">
-            <h4>Reserve a room at an idyllic mansion in beautiful nature with its own sea side view, delicious cuisine & great personal service.</h4>
-            <h4>Enter your desired check-in and check-out dates, as well as the number of guests.</h4>
+            <h4>Reserve a room </h4>
         </div>
     </div>
-    <form>
-        <div class="container-lg"> 
-            <h1></h1>
-            <h1></h1>
-            <h1></h1>
-        </div>
-    </form>
-    <form class="form" method="post">
+   <div>
+       <h2> Your booking is done. See you @Model.CheckInDate</h2>
+   </div>
 
+
+    @if(Model.RoomId == null)
+    {
+    <form class ="form" method="post">
+        <p class="text-center">Enter your desired check-in and check-out dates, as well as the number of guests for your desired room.</p>
         <div class="d-flex bg-body ">
             <h5 class="p-4 text-light">Check avaliabilety</h5>
 
@@ -59,15 +57,5 @@
 
         </div>
     </form>
-    <form>
-        <div class="container-lg">
-            <h1></h1>
-            <h1></h1>
-            <h1></h1>
-        </div>
-    </form>
-
-
+    }
 </div>
-        
-        

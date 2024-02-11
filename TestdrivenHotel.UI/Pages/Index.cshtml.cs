@@ -1,19 +1,45 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using TestDrivenHotel.Data;
+using TestDrivenHotel.DataAccess;
+using TestDrivenHotel.Logic;
 
 namespace TestdrivenHotel.UI.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
-        }
+        HotelService hotelService = new HotelService();
+
+        [BindProperty]
+        public DateTime CheckInDate { get; set; } = DateTime.Now;
+
+        [BindProperty]
+        public DateTime CheckOutDate { get; set; } = DateTime.Now;
+
+        [BindProperty]
+        public int NumberOfGuests { get; set; }
+
+        [BindProperty]
+        public string? RoomType { get; set; }
+
 
         public void OnGet()
         {
+            
+            
+            
+        }
+
+
+        public IActionResult OnPost(DateTime CheckinDate, DateTime CheckoutDate, int NumberOfGuests, string? RoomType)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            return RedirectToPage("/Explore", new { CheckinDate, CheckoutDate, NumberOfGuests, RoomType });// Redirect to the  page with the search parameters
+
 
         }
     }
