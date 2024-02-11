@@ -24,12 +24,12 @@ namespace TestdrivenHotel.Test
             var bookings = hotelService.GetAllBookings();
 
             // Assert
-            bookings.Should().NotBeNull(); // Check if bookings list is not null
-            bookings.Should().BeEmpty(); // Check if bookings list is empty
+            bookings.Should().NotBeNull(); 
+            bookings.Should().BeEmpty(); 
         }
 
         [Fact]
-        public void GetAllBookings_WithNonEmptyList_ReturnsAllBookings()
+        public void GetAllBookings_WithNonEmptyList_ReturnsAllBookings() // Check if bookings list is not empty
         {
             // Arrange
             var hotelService = new HotelService();
@@ -42,9 +42,9 @@ namespace TestdrivenHotel.Test
             var bookings = hotelService.GetAllBookings();
 
             // Assert
-            bookings.Should().NotBeNull(); // Check if bookings list is not null
-            bookings.Should().NotBeEmpty(); // Check if bookings list is not empty
-                                            // You can add more assertions to validate specific properties or conditions of the bookings
+            bookings.Should().NotBeNull(); 
+            bookings.Should().NotBeEmpty(); 
+                                            
         }
 
         //------------------------BookRoom---------------------------
@@ -63,7 +63,7 @@ namespace TestdrivenHotel.Test
             var booking = service.BookRoom(roomId, checkInDate, checkOutDate, numberOfGuests, 12);
 
             // Assert
-            booking.Should().NotBeNull(); // Check if booking is not null
+            booking.Should().NotBeNull(); 
             booking.RoomId.Should().Be(roomId); // Check if booking room ID is correct
             HotelData.Bookings.Should().Contain(b => b.RoomId == roomId && b.CheckInDate == checkInDate && b.CheckOutDate == checkOutDate && b.NumberOfGuests == numberOfGuests);//Check if parameters exists in the static List
 
