@@ -1,6 +1,7 @@
 # TestDrivenHotel
 Projektets Mål
 - Utveckla en del av ett Hotellbokningssystem med Razorpages, Använd TDD under utveckligen och alternativt ett CI/CD-pipeline för deployment till Azure.
+Azure Webbsida  --> luciashotel.azurewebsites.net
 
 **1. Förstå och definiera kraven**
 
