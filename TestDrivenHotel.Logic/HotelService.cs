@@ -54,8 +54,6 @@ namespace TestDrivenHotel.Logic
             return null;
         }
 
-       
-
         // Denna funktion hämtar tillgänliga rum utifrån sökkriteria
         public List<RoomModel> GetAvailableRooms(DateTime checkInDate, DateTime checkOutDate, int numberOfGuests, string roomType = null)
         {
@@ -98,26 +96,6 @@ namespace TestDrivenHotel.Logic
         }
 
         //Update - Uppdatera
-        public void UpdateBooking( int gustId, int roomId, int NewNrOfGuests, DateTime NewCheckInDate, DateTime NewCheckOutDate)
-        {
-            var roomToBeUpdated = HotelData.Bookings.FirstOrDefault(r => r.guestId == gustId); 
-            var UpdateRoom = HotelData.Rooms.FirstOrDefault(r => r.Id == roomId);
-            
-
-            if (roomToBeUpdated != null)
-            {
-                roomToBeUpdated.CheckInDate = NewCheckInDate;
-                roomToBeUpdated.CheckOutDate = NewCheckOutDate;
-                if (NewNrOfGuests > 0)
-                {
-                    roomToBeUpdated.NumberOfGuests = NewNrOfGuests;
-                }
-                if (UpdateRoom != null)
-                {
-                    roomToBeUpdated.RoomId = UpdateRoom.Id;
-                }
-            }
-        }
 
         //Booka ett rum funktion(lägger till valda parametrar i bokade rum listan) ger tillbaka en instans av objektet
         public BookingModel BookRoom(int roomId, DateTime checkInDate, DateTime checkOutDate, int numberOfGuests, int? guestId)
@@ -141,6 +119,27 @@ namespace TestDrivenHotel.Logic
                 HotelData.Bookings.Add(roomBooking);
 
                 return roomBooking;
+            }
+        }
+
+        public void UpdateBooking( int gustId, int roomId, int NewNrOfGuests, DateTime NewCheckInDate, DateTime NewCheckOutDate)
+        {
+            var roomToBeUpdated = HotelData.Bookings.FirstOrDefault(r => r.guestId == gustId); 
+            var UpdateRoom = HotelData.Rooms.FirstOrDefault(r => r.Id == roomId);
+            
+
+            if (roomToBeUpdated != null)
+            {
+                roomToBeUpdated.CheckInDate = NewCheckInDate;
+                roomToBeUpdated.CheckOutDate = NewCheckOutDate;
+                if (NewNrOfGuests > 0)
+                {
+                    roomToBeUpdated.NumberOfGuests = NewNrOfGuests;
+                }
+                if (UpdateRoom != null)
+                {
+                    roomToBeUpdated.RoomId = UpdateRoom.Id;
+                }
             }
         }
 

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TestdrivenHotel.UI.styles.css" asp-append-version="true" />
 </head>
-<body class="backImg">
+<body id="bg-subtle" class="backImg">
     <header id="header">
         
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom navbar-light bg-light">
@@ -46,7 +46,8 @@
         </nav>
 
     </header>
-    <div class="container-fluid">
+    
+    <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
