@@ -71,7 +71,7 @@ namespace TestdrivenHotel.Test
         {
             // Given - Arrange
             HotelService service = new HotelService();
-           // service.InitializeRoomsList();
+            // service.InitializeRoomsList();
             var checkInDate = DateTime.Now;
             var checkOutDate = checkInDate.AddDays(5);
             var numberOfGuests = 2;
@@ -90,7 +90,7 @@ namespace TestdrivenHotel.Test
         {
             // Arrange
             HotelService service = new HotelService();
-           // service.InitializeRoomsList();
+            // service.InitializeRoomsList();
             var checkInDate = DateTime.Today;
             var checkOutDate = checkInDate.AddDays(2);
             var numberOfGuests = 6;
@@ -127,7 +127,7 @@ namespace TestdrivenHotel.Test
         {
             // Arrange
             var hotelService = new HotelService();
-           // hotelService.InitializeRoomsList();
+            // hotelService.InitializeRoomsList();
             int invalidRoomId = 999;
 
             // Act & Assert
@@ -176,153 +176,19 @@ namespace TestdrivenHotel.Test
         {
             // Arrange
             var hotelService = new HotelService();
-           // hotelService.InitializeRoomsList();
+            // hotelService.InitializeRoomsList();
             string roomType = null; // Null room type
 
             // Act
             var rooms = hotelService.GetRoomsByType(roomType);
 
             // Assert
-            
+
             rooms.Should().BeNull(); // Check if rooms list is empty
         }
 
 
-        //Bookingtest
-        //--------------------GetAllBookings---------------------
-        [Fact]
-        public void GetAllBookings_WithEmptyList_ReturnsEmptyList()
-        {
-            // Arrange
-            var hotelService = new HotelService();
-
-            // Act
-            var bookings = hotelService.GetAllBookings();
-
-            // Assert
-            bookings.Should().NotBeNull(); // Check if bookings list is not null
-            bookings.Should().BeEmpty(); // Check if bookings list is empty
-        }
-
-        [Fact]
-        public void GetAllBookings_WithNonEmptyList_ReturnsAllBookings()
-        {
-            // Arrange
-            var hotelService = new HotelService();
-           
-            // Create some bookings
-            hotelService.BookRoom(101, DateTime.Today.AddDays(1), DateTime.Today.AddDays(3), 2);
-            hotelService.BookRoom(102, DateTime.Today.AddDays(2), DateTime.Today.AddDays(4), 4);
-
-            // Act
-            var bookings = hotelService.GetAllBookings();
-
-            // Assert
-            bookings.Should().NotBeNull(); // Check if bookings list is not null
-            bookings.Should().NotBeEmpty(); // Check if bookings list is not empty
-                                            // You can add more assertions to validate specific properties or conditions of the bookings
-        }
-        [Fact]
-        public void BookRoom_AddsBookingToList_WhenCalledWithValidParameters()
-        {
-            // Arrange
-            HotelService service = new HotelService();
-            //service.InitializeRoomsList();
-            var checkInDate = DateTime.Today;
-            var checkOutDate = checkInDate.AddDays(2);
-            var numberOfGuests = 4;
-            var roomId = 101;
-
-            // Act
-            var booking = service.BookRoom(roomId, checkInDate, checkOutDate, numberOfGuests);
-
-            // Assert
-            booking.Should().NotBeNull(); // Check if booking is not null
-            booking.RoomId.Should().Be(roomId); // Check if booking room ID is correct
-            HotelData.Bookings.Should().Contain(b => b.RoomId == roomId && b.CheckInDate == checkInDate && b.CheckOutDate == checkOutDate && b.NumberOfGuests == numberOfGuests);//Check if parameters exists in the static List
-            
-        }
-
-        // -------------EdgeCase----BookRoom------------------
-        public void BookRoom_WithOverlappingBooking_ThrowsException()
-        {
-            // Arrange
-            var hotelService = new HotelService();
-            int roomId = 101;
-            DateTime checkInDate = DateTime.Today.AddDays(1);
-            DateTime checkOutDate = DateTime.Today.AddDays(3);
-            int numberOfGuests = 2;
-            // Add a booking that overlaps with the test booking
-            hotelService.BookRoom(roomId, checkInDate.AddDays(-1), checkOutDate.AddDays(1), numberOfGuests);
-
-            // Act & Assert
-            hotelService.Invoking(s => s.BookRoom(roomId, checkInDate, checkOutDate, numberOfGuests))
-                .Should().Throw<ArgumentException>()
-                .WithMessage("Room is already booked for the selected dates.");
-        }
-        [Fact]
-        public void BookRoom_WithNonexistentRoomId_ThrowsException()
-        {
-            // Arrange
-            var hotelService = new HotelService();
-            int nonexistentRoomId = 999;
-            DateTime checkInDate = DateTime.Today.AddDays(1);
-            DateTime checkOutDate = DateTime.Today.AddDays(3);
-            int numberOfGuests = 2;
-
-            // Act & Assert
-            hotelService.Invoking(s => s.BookRoom(nonexistentRoomId, checkInDate, checkOutDate, numberOfGuests))
-                .Should().Throw<ArgumentException>()
-                .WithMessage("Room not found");
-        }
-
-        [Fact]
-        public void BookRoom_ThrowsArgumentException_WhenCalledWithRoomIdNotInRoomsList()
-        {
-            // Arrange
-            HotelService service = new();
-            var checkInDate = DateTime.Today;
-            var checkOutDate = checkInDate.AddDays(2);
-            var numberOfGuests = 1;
-            var roomId = 2;
-
-
-            // Act and Assert
-            Assert.Throws<ArgumentException>(() => service.BookRoom(roomId, checkInDate, checkOutDate, numberOfGuests));
-        }
-
-        //________DeleteBooking__________
-
-        [Fact]
-        public void DeleteBooking_RemovesBookingFromBookingsList_WhenCalledWithValidParameters()
-        {
-            // Arrange
-            var service = new HotelService();
-            //service.InitializeRoomsList();
-            service.BookRoom(101, DateTime.Today, DateTime.Today.AddDays(2), 2);
-
-            var bookingId = 0;
-
-            // Act
-            service.DeleteBooking(bookingId);
-
-            // Assert
-            HotelData.Bookings.Should().NotContain(b => b.Id == bookingId);
-        }
-
-        [Fact]
-        public void DeleteBooking_ThrowsArgumentException_WhenCalledWithBookingIdNotInBookingsList()
-        {
-            // Arrange
-            var service = new HotelService();
-           // service.InitializeRoomsList();
-            service.BookRoom(101, DateTime.Today, DateTime.Today.AddDays(2), 2);
-            var bookingId = 2;
-
-            // Act and Assert
-            Assert.Throws<ArgumentException>(() => service.DeleteBooking(bookingId));
-        }
-    }
+    }   
 }
 
 

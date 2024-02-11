@@ -16,6 +16,7 @@ namespace TestDrivenHotel.Data
         public string lastName { get; set; }
         [Required]
         public string CustomerEmail { get; set; }
+        
         public string? CustomerPhoneNumber { get; set; }
 
     }
